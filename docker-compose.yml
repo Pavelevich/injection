@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  unicode-steganography-tool:
+    image: yourusername/unicode-steganography-tool:latest
+    container_name: unicode-steg-tool
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_VERSION=1.0.0
+    restart: unless-stopped
+    networks:
+      - steganography-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unicode-steg.rule=Host(`steganography.yourdomain.com`)"
+      - "traefik.http.routers.unicode-steg.entrypoints=web"
+      - "traefik.http.services.unicode-steg.loadbalancer.server.port=80"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  steganography-network:
+    driver: bridge
+
+# Optional: Add Traefik for reverse proxy
+# traefik:
+#   image: traefik:v2.10
+#   container_name: traefik
+#   command:
+#     - "--api.insecure=true"
+#     - "--providers.docker=true"
+#     - "--providers.docker.exposedbydefault=false"
+#     - "--entrypoints.web.address=:80"
+#   ports:
+#     - "80:80"
+#     - "8080:8080"
+#   volumes:
+#     - /var/run/docker.sock:/var/run/docker.sock:ro
+#   networks:
+#     - steganography-network

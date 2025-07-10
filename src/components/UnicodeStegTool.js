@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Eye, EyeOff, AlertCircle, Check } from 'lucide-react';
+import { Copy, Eye, EyeOff, AlertCircle, Check, Github } from 'lucide-react';
 
 const UnicodeStegTool = () => {
   // ─── estado ────────────────────────────────────────────────────────────────
@@ -147,9 +147,26 @@ const UnicodeStegTool = () => {
   return (
       <div className="max-w-6xl mx-auto p-6 bg-gray-50 min-h-screen">
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            🔐 Unicode Hidden Message Generator
-          </h1>
+          {/* Header con GitHub link */}
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-800 mb-3">
+              🔐 Unicode Hidden Message Generator
+            </h1>
+
+            {/* GitHub link */}
+            <div className="flex items-center justify-center gap-2 text-gray-600">
+              <span className="text-sm">Created by Pavel Chmirenko</span>
+              <a
+                  href="https://github.com/Pavelevich/injection"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium"
+              >
+                <Github size={16} />
+                GitHub
+              </a>
+            </div>
+          </div>
 
           {/* selector de charset + inputs */}
           <div className="space-y-6">

@@ -1,5 +1,7 @@
 # Unicode Steganography Tool
 
+![img.png](img.png)
+
 A React-based educational tool for demonstrating Unicode steganography techniques using invisible characters. This project is designed for cybersecurity research and educational purposes.
 
 ## 🎯 Purpose

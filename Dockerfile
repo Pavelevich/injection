@@ -1,5 +1,6 @@
 # ============================================
 # DOCKERFILE FOR UNICODE STEGANOGRAPHY TOOL
+# FIXED VERSION - Handles package lock issues
 # ============================================
 
 # Stage 1: Build the React application
@@ -11,8 +12,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Clean install - this handles lock file mismatches
+RUN npm install
 
 # Copy source code
 COPY . .
@@ -47,7 +48,7 @@ EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:80/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
